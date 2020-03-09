@@ -14,42 +14,45 @@ export class MatDataTableComponent implements OnInit, AfterViewInit {
   title = 'materialDatatable';
   @Input() tableData;
   @Input() tableColumn: string[];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   columnFilter = new FormControl();
   dataSource;
-  filterValues:any = {};
+  filterValues: any = {};
+
   constructor() { }
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   ngOnInit() {
+    // Material Table data source
     this.dataSource = new MatTableDataSource(this.tableData);
-    this.tableColumn.map(ele=>{
-      this.filterValues[ele]=''
+    this.tableColumn.map(ele => {
+      this.filterValues[ele] = '';
     });
+    // Material dataTable column wise filter
     this.columnFilter.valueChanges.subscribe((positionFilterValue) => {
       console.log(positionFilterValue);
-      this.tableColumn.map(ele=>{
+      this.tableColumn.map(ele => {
         this.filterValues[ele] = positionFilterValue;
       })
       this.dataSource.filter = JSON.stringify(this.filterValues);
-     // this.filteredValues['topFilter'] = false;
     });
 
     this.dataSource.filterPredicate = this.createFilter();
   }
-ngAfterViewInit(): void {
-  this.dataSource.paginator = this.paginator;
-  this.dataSource.sort = this.sort;
-  console.log('tableColumn',this.paginator);
-}
-
-createFilter(): (data: any, filter: string) => boolean {
-  let filterFunction = function(data, filter): boolean {
-    let searchTerms = JSON.parse(filter);
-    return  data.name.toLowerCase().indexOf(searchTerms.name) !== -1
-      && data.symbol.toString().toLowerCase().indexOf(searchTerms.symbol) !== -1
+  ngAfterViewInit(): void {
+    // Datatable sorting and pagination
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+  // function to filter data source as per the user input
+  createFilter(): (data: any, filter: string) => boolean {
+    let filterFunction = function (data, filter): boolean {
+      let searchTerms = JSON.parse(filter);
+      return data.name.toLowerCase().indexOf(searchTerms.name) !== -1
+        && data.symbol.toString().toLowerCase().indexOf(searchTerms.symbol) !== -1
       // && data.weight.toLowerCase().indexOf(searchTerms.weight) !== -1
       // && data.position.toLowerCase().indexOf(searchTerms.position) !== -1;
+    }
+    return filterFunction;
   }
-  return filterFunction;
-}
 }
