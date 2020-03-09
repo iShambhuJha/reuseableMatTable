@@ -1,0 +1,182 @@
+//Variables
+$black-color: #000000;
+$black-v1-color: #141414;
+$black-v2-color: #0C0C0C;
+$black-v3-color: #212121;
+
+
+$white-color: #FFFFFF;
+$white-v1-color: #F9F9F9;
+$white-v2-color: #f2f3f2;
+$white-v3-color: #FAFAFA;
+$white-v4-color: #fdfdfd;
+$white-v5-color: #F9F9F9;
+
+$primary-color: #FBC02D;
+$primary-v1-color: #fccf5d;
+$primary-v2-color: #8E6600;
+$primary-v3-color: #FFD500;
+$primary-v4-color: #DEA922;
+$primary-v5-color: #f1c148;
+$primary-v6-color: #FBC02D;
+$primary-v7-color: #FAB507;
+$primary-v8-color: #FBBD23;
+
+$light-yellow: #FEF3D5;
+$light-yellow-v1: #FDE19B;
+$light-yellow-v2: #FFFAEF;
+$dark-yellow: #DD8D22;
+
+$hyper-link-color: #00508E;
+
+$secondary-color: #0F0F0F;
+$secondary-v2-color: #424242;
+
+$gray-v15-color: #9e9e9e;
+$gray-v14-color: #EEEEEE;
+$gray-v13-color: #707070;
+$gray-v12-color: #717171;
+$gray-v11-color: #E0E0E0;
+$gray-v10-color: #f1f2f3;
+$gray-v9-color: #9d9d9d;
+$gray-v8-color: #ACABAB;
+$gray-v7-color: #9b9b9b;
+$gray-v6-color: #E6E6E6;
+$gray-v5-color: #808080;
+$gray-v4-color: #595959;
+$gray-v3-color: #F2F2F2;
+$gray-v2-color: #D9D9D9;
+$gray-v1-color: #737373;
+$gray-color: #9A9A9A;
+
+$red-v1-color: #f44336;
+
+$light-pink-color: #EB7070 ;
+$light-pink-v1-color: #F8A9A9;
+$light-pink-v2-color: #ffc1c1;
+
+$brown-coco-color: #BC8E60;
+
+$teal-color: #69DED6;
+$teal-v1-color: #BBF1BA;
+$teal-v2-color: #A4DEC5;
+
+$green-color: #00874E;
+
+$sky-blue-color: #519FE6;
+$sky-blue-v1-color: #B9D5F0;
+$sky-blue-v2-color: #A3CAF0;
+$sky-blue-v3-color: #B3E3FC;
+
+$violet-color:#8C5ECF;
+$violet-v1-color: #C2A3F0;
+
+$beige-color: #F8D7B7;
+$anchor-color: #224B74;
+$change-status-color:#EC4461;
+$change-status-green: #00874e;
+
+%full-width {
+  display: inline-block;
+  width: 100%;
+}
+%full-section {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+%common-ico-setting {
+  top: 12px;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+%common-ico {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+%common-ico-before {
+  display: inline-block;
+  content: '';
+  margin-right: 8px;
+  width: 24px;
+  height: 24px;
+  background-size: 100% 100%;
+}
+
+%ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+%flex-box {
+  display: flex;
+  align-items: center;
+
+  &-row {
+    flex-flow: row nowrap;
+  }
+
+  &-column{
+    flex-flow: column nowrap;
+  }
+
+  &-center {
+    justify-content: center;
+  }
+
+  &-left {
+    justify-content: flex-start;
+  }
+
+  &-right {
+    justify-content: flex-end;
+  }
+
+  &-left-right {
+    justify-content: space-between;
+  }
+}
+
+// SETTINGS - VARIABLES
+
+$color-link: #212121;
+$color-separator: #767676;
+$size-icon: 16px;
+$space-separator: 8px;
+
+
+// TOOLS - MIXINS
+
+@mixin text-underline($color: currentColor) {
+  background-image: linear-gradient($color, $color);
+  background-size: auto 1px;
+  background-repeat: repeat-x;
+  background-position: 0 calc(50% + 1ex);
+}
+
+// TOOLS - FUNCTIONS
+
+@function icon-svg-uri($icon-name, $color) {
+  @if (type_of($color) == 'color') and (str-index(inspect($color), '#') == 1) {
+    $encoded-color: '%23' + str-slice(inspect($color), 2);
+
+    // MS Edge is turning single quotes to double quotes. (`url('data:` -> `url("data:`)
+    $icon-set: ( arrow-left: "%3Cline x1='19' y1='12' x2='5' y2='12'%3E%3C/line%3E%3Cpolyline points='12 19 5 12 12 5'%3E%3C/polyline%3E", chevron-right: "%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E" );
+
+    @if map-has-key($icon-set, $icon-name) {
+      @return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#{$encoded-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round%5C'%3E#{map-get($icon-set, $icon-name)}%3C/svg%3E";
+      /*@return "data:image/svg+xml,%3Csvg xmlns='./assets/images/bc_right_arrow.svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#{$encoded-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round%5C'%3E#{map-get($icon-set, $icon-name)}%3C/svg%3E";*/
+    }
+    @else {
+      @error 'Invalid icon name: `#{$icon-name}`'
+    }
+  }
+  @else {
+    @error 'Invalid HEX value: `#{$color}`'
+  }
+}
