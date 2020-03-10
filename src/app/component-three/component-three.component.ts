@@ -19,6 +19,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O', age:11,gender:'Male'},
   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F', age:89,gender:'Male'},
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne', age:76,gender:'Female'},
+  {position: 11, name: 'Neon', weight: 20.1797, symbol: 'Ne', age:76,gender:'Female'},
 ];
 @Component({
   selector: 'app-component-three',
