@@ -14,8 +14,10 @@ import { ComponentThreeComponent } from './component-three/component-three.compo
 import { HeaderComponent } from './header/header.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
-import {MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatFormFieldModule, MatInputModule, MatButtonToggleModule, MatMenuModule, MatIconModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,12 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
     CdkTableModule,
     MatSortModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatButtonToggleModule,
+    MatMenuModule,
+    MatIconModule
   ],
   exports:[
     MatPaginatorModule

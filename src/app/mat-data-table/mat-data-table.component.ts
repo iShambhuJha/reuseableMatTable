@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
+import { MatButtonToggle } from '@angular/material';
 
 @Component({
   selector: 'app-mat-data-table',
@@ -12,13 +13,17 @@ import { FormControl } from '@angular/forms';
 })
 export class MatDataTableComponent implements OnInit, AfterViewInit {
   title = 'materialDatatable';
+  //toppingList: string[] = ['position', 'name', 'weight', 'symbol'];
   @Input() tableData;
   @Input() tableColumn: string[];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('group', { static: true }) toggle: MatButtonToggle;
   columnFilter = new FormControl();
+
   dataSource;
   filterValues: any = {};
+  toppingList: string[];
 
   constructor() { }
 
@@ -38,6 +43,7 @@ export class MatDataTableComponent implements OnInit, AfterViewInit {
     });
 
     this.dataSource.filterPredicate = this.createFilter();
+    this.toppingList = this.tableColumn;
   }
   ngAfterViewInit(): void {
     // Datatable sorting and pagination
@@ -54,5 +60,16 @@ export class MatDataTableComponent implements OnInit, AfterViewInit {
       // && data.position.toLowerCase().indexOf(searchTerms.position) !== -1;
     }
     return filterFunction;
+  }
+  columnClick(colName: string) {
+    const colIndex = this.tableColumn.findIndex(col => col === colName);
+
+    if (colIndex > 0) {
+      // column is currently shown in the table, so we remove it
+      this.tableColumn.splice(colIndex, 1);
+    } else {
+      // column is not in the table, so we add it
+      this.tableColumn.push(colName);
+    }
   }
 }

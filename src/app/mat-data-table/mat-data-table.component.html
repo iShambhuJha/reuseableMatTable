@@ -1,4 +1,35 @@
 <div class="mat-elevation-z8">
+  <!-- Show/Hide Column -->
+  <label>Show/Hide Column</label>
+  <!-- <mat-form-field>
+    <mat-select placeholder="Toppings">
+        <mat-option *ngFor="let topping of toppingList; let i =index" [value]="topping">
+            <mat-checkbox> {{topping}}</mat-checkbox>
+        </mat-option>
+    </mat-select>
+  </mat-form-field> -->
+  <!-- <mat-button-toggle-group [multiple]="true" #group="matButtonToggleGroup">
+    <mat-button-toggle value="position">
+      <span>Position</span>
+    </mat-button-toggle>
+      <mat-button-toggle value="name">
+      <span>Name</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="weight">
+      <span>Weight</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="symbol">
+      <span>Symbol</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group> -->
+  <button mat-button [matMenuTriggerFor]="menu"><mat-icon>keyboard_arrow_down</mat-icon></button>
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let col of toppingList">
+    <input type="checkbox" mat-menu-item (click)="columnClick(col)">
+    <span> {{col}}</span>
+  </ng-container>
+</mat-menu>
+  <!--  -->
   <!-- Material datatable pagination -->
   <mat-paginator
     [pageSizeOptions]="[5, 10]"
@@ -7,9 +38,9 @@
   <!-- -->
 
   <!-- Material dataTable with datasource -->
-  <table mat-table class="dataTab" [dataSource]="dataSource">
+  <table mat-table class="dataTab"  matSort  [dataSource]="dataSource">
     <ng-container *ngFor="let col of tableColumn" [matColumnDef]="col">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ col }}
         <div>
           <mat-form-field>
